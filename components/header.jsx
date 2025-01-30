@@ -22,10 +22,10 @@ function Header() {
             className='h-20 py-1 w-auto object-contain'
           />
         </Link>
-        <div className="flex items-center space-x-2 md:space-x-4">
+        <div className="flex-grow flex justify-center">
           {isSignedIn ? (
             <>
-              <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+              <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12 items-center justify-between">
                 <li><Link href="/dashboard" className="hover:text-gray-400">Find Gigs</Link></li>
                 <li><Link href="/negotiator" className="hover:text-gray-400">Contract Negotiator</Link></li>
                 <li><Link href="/profile-optimizer" className="hover:text-gray-400">Profile Optimizer</Link></li>
