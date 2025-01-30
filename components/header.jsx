@@ -1,9 +1,56 @@
-import React from 'react'
+"use client"; 
+
+import React from 'react';
+import { useUser , SignInButton, UserButton } from "@clerk/nextjs";
+import { LayoutDashboard } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from './ui/button';
 
 function Header() {
+  const { isSignedIn } = useUser ();
+
   return (
-    <div>header</div>
-  )
+    <header className='fixed top-0 w-full border-b bg-background/80 backdrop-blur-md z-50 supports-[backdrop-filter]:bg-background/60'>
+      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
+        <Link href="/">
+          <Image
+            src="/logo.png"
+            alt="GigPilot"
+            width={200}
+            height={50}
+            className='h-20 py-1 w-auto object-contain'
+          />
+        </Link>
+        <div className="flex items-center space-x-2 md:space-x-4">
+          {isSignedIn ? (
+            <>
+              <ul className="hidden md:flex px-4 mx-auto font-semibold font-heading space-x-12">
+                <li><Link href="/dashboard" className="hover:text-gray-400">Find Gigs</Link></li>
+                <li><Link href="/negotiator" className="hover:text-gray-400">Contract Negotiator</Link></li>
+                <li><Link href="/profile-optimizer" className="hover:text-gray-400">Profile Optimizer</Link></li>
+                <li><Link href="/dashboard" className="hover:text-gray-400">Dashboard</Link></li>
+              </ul>
+              <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "w-10 h-10",
+                    userButtonPopoverCard: "shadow-xl",
+                    userPreviewMainIdentifier: "font-semibold",
+                  },
+                }}
+                afterSignOutUrl="/"
+              />
+            </>
+          ) : (
+            <SignInButton>
+              <Button variant="outline">Sign In</Button>
+            </SignInButton>
+          )}
+        </div>
+      </nav>
+    </header>
+  );
 }
 
-export default Header
+export default Header;
