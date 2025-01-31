@@ -33,20 +33,21 @@ export default function LandingPage() {
       {/* Features Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12">
-            Powerful Features for Your Career Growth
+          <h2 className="text-3xl font-bold tracking-tighter text-center mb-12 text-cyan-100">
+          🚀 GigPilot Features
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className="border-2 hover:border-primary transition-colors duration-300"
+                className="border-2 transition-colors transform  duration-500 shadow-lg rounded-2xl border-transparent hover:bg-transparent 
+		hover:scale-105 hover:shadow-2xl hover:shadow-cyan-400 hover:border-cyan-400"
               >
                 <CardContent className="pt-6 text-center flex flex-col items-center">
                   <div className="flex flex-col items-center justify-center">
                     {feature.icon}
-                    <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-                    <p className="text-muted-foreground">
+                    <h3 className="text-xl font-bold mb-2 text-cyan-100">{feature.title}</h3>
+                    <p className="text-muted-foreground text-cyan-50">
                       {feature.description}
                     </p>
                   </div>
@@ -56,7 +57,18 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-
+       {/* <section className="bg-gray-900 text-white py-20 px-6">
+      <h2 className="text-center text-4xl font-bold mb-10">🚀 GigPilot Features</h2>
+      <div className="grid md:grid-cols-3 gap-8">
+        {features.map((feature, index) => (
+          <div key={index} className="bg-gray-800 p-6 rounded-lg shadow-lg text-center">
+            <div className="text-5xl">{feature.icon}</div>
+            <h3 className="text-xl font-semibold mt-4">{feature.title}</h3>
+            <p className="text-gray-300 mt-2">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </section> */}
       {/* Stats Section */}
       <section className="w-full py-12 md:py-24 bg-muted/50">
         <div className="container mx-auto px-4 md:px-6">
