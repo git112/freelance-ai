@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import HeroSection from "../components/hero";
 import AnaltyticsSection from "../components/analytics";
+import HowitworksSection from "../components/howitworks";
 // import {
 //   Accordion,
 //   AccordionContent,
@@ -20,8 +21,8 @@ import AnaltyticsSection from "../components/analytics";
 import Image from "next/image";
 import { features } from "../data/features";
 import { testimonial } from "../data/testimonial";
-import { faqs } from "../data/faqs";
-import { howItWorks } from "../data/howItWorks";
+// import { faqs } from "../data/faqs";
+// import { howItWorks } from "../data/howItWorks";
 
 
 
@@ -65,7 +66,8 @@ export default function LandingPage() {
       <AnaltyticsSection />
 
       {/* How It Works Section */}
-      <section className="w-full py-12 md:py-24 bg-background">
+      <HowitworksSection />
+      {/* <section className="w-full py-12 md:py-24 bg-background">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl font-bold mb-4">How It Works</h2>
@@ -89,7 +91,7 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="w-full py-12 md:py-24 bg-muted/50">
         <div className="container mx-auto px-4 md:px-6">
