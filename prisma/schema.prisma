@@ -1,14 +1,103 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql" // Change to "mysql" if needed
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL") // Add this if you're using Neon with pooling
+}
+
+model User {
+  id              String        @id @default(uuid())
+  clerkUserId     String        @unique
+  name            String
+  email           String        @unique
+  role            Role
+  bio             String?
+  profileImage    String?
+  skills          String[]
+  gigs            Gig[]         @relation("ClientGigs")
+  applications    Application[]
+  reviewsGiven    Review[]      @relation("ReviewerReviews")
+  reviewsReceived Review[]      @relation("ReviewedUserReviews")
+  savedGigs       SavedGig[]
+  createdAt       DateTime      @default(now())
+  performances    Performance[]
+}
+
+model Gig {
+  id              String          @id @default(uuid())
+  client          User            @relation("ClientGigs", fields: [clientId], references: [id])
+  clientId        String
+  title           String
+  description     String
+  category        String
+  price           Float
+  location        String?
+  experienceLevel ExperienceLevel
+  deadline        DateTime?
+  applications    Application[]
+  createdAt       DateTime        @default(now())
+  savedBy         SavedGig[]
+}
+
+model Application {
+  id            String            @id @default(uuid())
+  gig           Gig               @relation(fields: [gigId], references: [id])
+  gigId         String
+  freelancer    User              @relation(fields: [freelancerId], references: [id])
+  freelancerId  String
+  coverLetter   String?
+  proposedPrice Float
+  status        ApplicationStatus @default(PENDING)
+  createdAt     DateTime          @default(now())
+}
+
+model Review {
+  id             String   @id @default(uuid())
+  reviewer       User     @relation("ReviewerReviews", fields: [reviewerId], references: [id])
+  reviewerId     String
+  reviewedUser   User     @relation("ReviewedUserReviews", fields: [reviewedUserId], references: [id])
+  reviewedUserId String
+  rating         Int      @default(1)
+  comment        String?
+  createdAt      DateTime @default(now())
+}
+
+model SavedGig {
+  id           String   @id @default(uuid())
+  freelancer   User     @relation(fields: [freelancerId], references: [id])
+  freelancerId String
+  gig          Gig      @relation(fields: [gigId], references: [id])
+  gigId        String
+  savedAt      DateTime @default(now())
+}
+
+model Performance {
+  id            String   @id @default(uuid())
+  user          User     @relation(fields: [userId], references: [id])
+  userId        String
+  month         String // Example: "Jan 2024"
+  gigsCompleted Int
+  earnings      Float
+  rating        Float
+  createdAt     DateTime @default(now())
+}
+
+enum Role {
+  FREELANCER
+  CLIENT
+}
+
+enum ExperienceLevel {
+  BEGINNER
+  INTERMEDIATE
+  EXPERT
+}
+
+enum ApplicationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
